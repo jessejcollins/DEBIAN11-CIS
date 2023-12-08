@@ -18,6 +18,7 @@
       - always
 
 #  This control should always run as this can pass on unintended issues.
+# trunk-ignore(checkov/CKV2_ANSIBLE_3)
 - name: "Check password set for connecting user"
   block:
       - name: Capture current password state of connecting user"
@@ -50,6 +51,7 @@
   tags:
       - always
 
+# trunk-ignore(checkov/CKV2_ANSIBLE_3)
 - name: Check ubtu22cis_grub_user password variable has been changed
   block:
       - name: Check ubtu22cis_grub_user password variable has been changed | check password is set
@@ -77,6 +79,7 @@
   tags:
       - always
 
+# trunk-ignore(checkov/CKV2_ANSIBLE_3)
 - name: Setup rules if container
   block:
       - name: Discover and set container variable if required
@@ -202,6 +205,7 @@
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
 
+# trunk-ignore(checkov/CKV2_ANSIBLE_3)
 - name: Reboot system
   block:
       - name: Reboot system if not skipped
