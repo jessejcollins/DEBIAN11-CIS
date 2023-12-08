@@ -4,8 +4,8 @@
   ansible.builtin.fail:
       msg: "This role can only be run against Ubuntu 22. {{ ansible_facts.distribution }} {{ ansible_facts.distribution_major_version }} is not supported."
   when:
-      - ansible_facts.distribution == 'Ubuntu'
-      - ansible_facts.distribution_major_version is version_compare('22', '!=')
+      - ansible_facts.distribution != 'Ubuntu'
+      - ansible_facts.distribution == 'Ubuntu' and ansible_facts.distribution_major_version is version_compare('22', '!=')
   tags:
       - always
 
