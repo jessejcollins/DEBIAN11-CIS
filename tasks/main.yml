@@ -2,9 +2,9 @@
 
 - name: Check OS version and family
   ansible.builtin.fail:
-      msg: "This role can only be run against Ubuntu 22. {{ ansible_facts.distribution }} {{ ansible_facts.distribution_major_version }} is not supported."
+      msg: "This role can only be run against Debian 11 or Debian 12. {{ ansible_facts.distribution }} {{ ansible_facts.distribution_major_version }} is not supported."
   when:
-      - ansible_facts.distribution != 'Ubuntu' or (ansible_facts.distribution == 'Ubuntu' and ansible_facts.distribution_major_version is version_compare('22', '!='))
+      - ansible_facts.distribution != 'Debian' or (ansible_facts.distribution == 'Debian' and ansible_facts.distribution_major_version is version_compare('11', '!=') and ansible_facts.distribution_major_version is version_compare('12', '!='))
   tags:
       - always
   check_mode: false
