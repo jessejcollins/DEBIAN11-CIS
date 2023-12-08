@@ -8,6 +8,7 @@
       - ansible_facts.distribution == 'Ubuntu' and ansible_facts.distribution_major_version is version_compare('22', '!=')
   tags:
       - always
+  check_mode: false
 
 - name: Check ansible version
   ansible.builtin.assert:
