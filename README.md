@@ -1,4 +1,8 @@
-# Ubuntu 22 CIS
+# Debian 11 CIS
+
+**This repository is a work in progress. It is not yet ready for use on Debian 11.**
+
+This repository is a fork of [ansible-lockdown/UBUNTU22-CIS](https://github.com/ansible-lockdown/UBUNTU22-CIS) since [ansible-lockdown/DEBIAN11-CIS](https://github.com/ansible-lockdown/DEBIAN11-CIS) has not been publically released yet but there are significant overlap between the CIS Benchmark for Ubuntu 22 and Debian 11.
 
 ## Configure a Ubuntu 22 machine to be [CIS](https://www.cisecurity.org/cis-benchmarks/) compliant
 
