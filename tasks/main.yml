@@ -57,6 +57,7 @@
       - name: Check ubtu22cis_grub_user password variable has been changed | check password is set
         ansible.builtin.shell: "grep ^{{ ubtu22cis_grub_user }} /etc/shadow | awk -F : '{print $2}'"
         changed_when: false
+        check_mode: false
         register: ubtu22cis_password_set_grub_user
 
       - name: Check ubtu22cis_grub_user password variable has been changed | check password is set
