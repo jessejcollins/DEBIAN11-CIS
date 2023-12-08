@@ -6,6 +6,7 @@
   when:
       - ansible_facts.distribution == 'Ubuntu'
       - ansible_facts.distribution_major_version is version_compare('22', '!=')
+  check_mode: false
   tags:
       - always
 
