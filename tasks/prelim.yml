@@ -9,6 +9,7 @@
   ansible.builtin.shell: df -h | grep -wc "/snap"
   changed_when: false
   failed_when: snap_pkg_mgr.rc not in [ 0, 1 ]
+  check_mode: false
   register: snap_pkg_mgr
   tags:
       - rule_1.1.1.2
@@ -20,6 +21,7 @@
   ansible.builtin.shell: cat /lib/modules/$(uname -r)/modules.builtin | grep  -c "squashfs"
   changed_when: false
   failed_when: squashfs_builtin.rc not in [ 0, 1 ]
+  check_mode: false
   register: squashfs_builtin
   tags:
       - rule_1.1.1.2
@@ -40,6 +42,7 @@
         register: discover_tmp_mnt_type
         changed_when: false
         failed_when: discover_tmp_mnt_type.rc not in [ 0, 1 ]
+        check_mode: false
 
       - name: PRELIM | Capture tmp mount type | Set to expected_tmp_mnt variable
         ansible.builtin.set_fact:
@@ -150,16 +153,19 @@
       - name: "PRELIM | Capture UID_MIN information from logins.def"
         ansible.builtin.shell: grep -w "^UID_MIN" /etc/login.defs | awk '{print $NF}'
         changed_when: false
+        check_mode: false
         register: uid_min_id
 
       - name: "PRELIM | Capture UID_MAX information from logins.def"
         ansible.builtin.shell: grep -w "^UID_MAX" /etc/login.defs | awk '{print $NF}'
         changed_when: false
+        check_mode: false
         register: uid_max_id
 
       - name: "PRELIM | Capture GID_MIN information from logins.def"
         ansible.builtin.shell: grep -w "^GID_MIN" /etc/login.defs | awk '{print $NF}'
         changed_when: false
+        check_mode: false
         register: gid_min_id
 
       - name: "PRELIM | set_facts for interactive uid/gid"
@@ -176,6 +182,7 @@
   ansible.builtin.shell: >
       grep -E -v '^(root|halt|sync|shutdown)' /etc/passwd | awk -F: '(!index($7, "sbin/nologin") && $7 != "/bin/false") { print $6 }'
   changed_when: false
+  check_mode: false
   register: interactive_users_home
   tags:
       - always
