@@ -2,7 +2,7 @@
 - name: "PRELIM | Set default values for facts"
   ansible.builtin.set_fact:
       control_1_6_1_4_was_run: false
-      ubtu22cis_apparmor_enforce_only: false
+      debian11cis_apparmor_enforce_only: false
   changed_when: false
 
 - name: "PRELIM | Register if snap being used"
@@ -14,7 +14,7 @@
       - rule_1.1.1.2
       - always
   when:
-      - ubtu22cis_rule_1_1_1_2
+      - debian11cis_rule_1_1_1_2
 
 - name: "PRELIM | Register if squashfs is built into the kernel"
   ansible.builtin.shell: cat /lib/modules/$(uname -r)/modules.builtin | grep  -c "squashfs"
@@ -25,7 +25,7 @@
       - rule_1.1.1.2
       - always
   when:
-      - ubtu22cis_rule_1_1_1_2
+      - debian11cis_rule_1_1_1_2
 
 - name: "PRELIM | Section 1.1 | Create list of mount points"
   ansible.builtin.set_fact:
@@ -52,10 +52,10 @@
         when: "'generated' not in discover_tmp_mnt_type.stdout"
   when:
       - "'/tmp' in mount_names"
-      - ubtu22cis_rule_1_1_2_1 or
-        ubtu22cis_rule_1_1_2_2 or
-        ubtu22cis_rule_1_1_2_3 or
-        ubtu22cis_rule_1_1_2_4
+      - debian11cis_rule_1_1_2_1 or
+        debian11cis_rule_1_1_2_2 or
+        debian11cis_rule_1_1_2_3 or
+        debian11cis_rule_1_1_2_4
   tags:
       - always
 
@@ -63,18 +63,18 @@
   ansible.builtin.package:
       update_cache: true
   when:
-      - ubtu22cis_rule_1_3_1 or
-        ubtu22cis_rule_1_9
+      - debian11cis_rule_1_3_1 or
+        debian11cis_rule_1_9
   tags:
       - always
 
 - name: "PRELIM | Check for autofs service"
   ansible.builtin.shell: "systemctl show autofs | grep LoadState | cut -d = -f 2"
-  register: ubtu22cis_autofs_service_status
+  register: debian11cis_autofs_service_status
   changed_when: false
   check_mode: false
   when:
-      - ubtu22cis_rule_1_1_9
+      - debian11cis_rule_1_1_9
   tags:
       - skip_ansible_lint
       - section1
@@ -86,7 +86,7 @@
   changed_when: false
   check_mode: false
   when:
-      - ubtu22cis_rule_2_2_2
+      - debian11cis_rule_2_2_2
   tags:
       - skip_ansible_lint
       - always
@@ -96,8 +96,8 @@
       name: network-manager
       state: present
   when:
-      - ubtu22cis_rule_3_1_2
-      - ubtu22cis_install_network_manager
+      - debian11cis_rule_3_1_2
+      - debian11cis_install_network_manager
       - not system_is_container
       - "'network-manager' not in ansible_facts.packages"
   tags:
@@ -122,10 +122,10 @@
         register: auditd_conf_files
 
   when:
-      - ubtu22cis_rule_4_1_1_1 or
-        ubtu22cis_rule_4_1_4_5 or
-        ubtu22cis_rule_4_1_4_6 or
-        ubtu22cis_rule_4_1_4_7
+      - debian11cis_rule_4_1_1_1 or
+        debian11cis_rule_4_1_4_5 or
+        debian11cis_rule_4_1_4_6 or
+        debian11cis_rule_4_1_4_7
   tags:
       - level2-server
       - level2-workstation
@@ -138,10 +138,10 @@
   changed_when: false
   failed_when: false
   check_mode: false
-  register: ubtu22cis_sudoers_files
+  register: debian11cis_sudoers_files
   when:
-      - ubtu22cis_rule_5_3_4 or
-        ubtu22cis_rule_5_3_5
+      - debian11cis_rule_5_3_4 or
+        debian11cis_rule_5_3_5
   tags:
       - always
 
@@ -185,7 +185,7 @@
       name: acl
       state: present
   when:
-      - ubtu22cis_rule_6_2_6
+      - debian11cis_rule_6_2_6
       - "'acl' not in ansible_facts.packages"
   tags:
       - always
@@ -194,7 +194,7 @@
   ansible.builtin.shell: "cat /etc/passwd | awk -F: '($3 == 0 && $1 != \"root\") {i++;print $1 } END {exit i}'"
   changed_when: false
   check_mode: false
-  register: ubtu22cis_uid_zero_accounts_except_root
+  register: debian11cis_uid_zero_accounts_except_root
   tags:
       - rule_6.2.10
       - level1-server
@@ -206,11 +206,11 @@
   ansible.builtin.shell: "awk -F: '{print $1}' /etc/passwd"
   changed_when: false
   check_mode: false
-  register: ubtu22cis_users
+  register: debian11cis_users
   when:
-      - ubtu22cis_rule_6_2_14 or
-        ubtu22cis_rule_6_2_15 or
-        ubtu22cis_rule_6_2_16
+      - debian11cis_rule_6_2_14 or
+        debian11cis_rule_6_2_15 or
+        debian11cis_rule_6_2_16
   tags:
       - always
 
@@ -226,7 +226,7 @@
       regexp: ^IPT_SYSCTL=.*
       line: IPT_SYSCTL=/etc/sysctl.conf
   when:
-      - ubtu22cis_firewall_package == "ufw"
-      - ubtu22cis_ufw_use_sysctl
+      - debian11cis_firewall_package == "ufw"
+      - debian11cis_ufw_use_sysctl
   tags:
       - always

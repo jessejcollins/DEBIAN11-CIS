@@ -23,7 +23,7 @@
             state: absent
         when: ansible_connection != 'docker'
   when:
-      - ubtu22cis_rule_1_1_1_1
+      - debian11cis_rule_1_1_1_1
   tags:
       - level1-server
       - level1-workstation
@@ -55,7 +55,7 @@
             state: absent
         when: ansible_connection != 'docker'
   when:
-      - ubtu22cis_rule_1_1_1_2
+      - debian11cis_rule_1_1_1_2
       - snap_pkg_mgr.stdout == "0"
       - squashfs_builtin.stdout == "0"
   tags:
@@ -89,7 +89,7 @@
             state: absent
         when: ansible_connection != 'docker'
   when:
-      - ubtu22cis_rule_1_1_1_3
+      - debian11cis_rule_1_1_1_3
   tags:
       - level2-server
       - level2-workstation

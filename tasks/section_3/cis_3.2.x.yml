@@ -5,7 +5,7 @@
       name: "{{ item }}"
       value: '0'
       sysctl_set: true
-      sysctl_file: "{{ ubtu22cis_sysctl_network_conf }}"
+      sysctl_file: "{{ debian11cis_sysctl_network_conf }}"
       state: present
       reload: true
       ignoreerrors: true
@@ -14,8 +14,8 @@
       - net.ipv4.conf.default.send_redirects
   notify: Flush ipv4 route table
   when:
-      - ubtu22cis_rule_3_2_1
-      - not ubtu22cis_is_router
+      - debian11cis_rule_3_2_1
+      - not debian11cis_is_router
   tags:
       - level1-server
       - level1-workstation
@@ -32,7 +32,7 @@
             name: net.ipv4.ip_forward
             value: '0'
             sysctl_set: true
-            sysctl_file: "{{ ubtu22cis_sysctl_network_conf }}"
+            sysctl_file: "{{ debian11cis_sysctl_network_conf }}"
             state: present
             reload: true
             ignoreerrors: true
@@ -44,7 +44,7 @@
             name: net.ipv6.conf.all.forwarding
             value: '0'
             sysctl_set: true
-            sysctl_file: "{{ ubtu22cis_sysctl_network_conf }}"
+            sysctl_file: "{{ debian11cis_sysctl_network_conf }}"
             state: present
             reload: true
             ignoreerrors: true
@@ -52,8 +52,8 @@
             - Flush ipv6 route table
 
   when:
-      - ubtu22cis_rule_3_2_2
-      - not ubtu22cis_is_router
+      - debian11cis_rule_3_2_2
+      - not debian11cis_is_router
   tags:
       - level1-server
       - level1-workstation

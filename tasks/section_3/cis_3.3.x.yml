@@ -7,7 +7,7 @@
             name: "{{ item }}"
             value: '0'
             sysctl_set: true
-            sysctl_file: "{{ ubtu22cis_sysctl_network_conf }}"
+            sysctl_file: "{{ debian11cis_sysctl_network_conf }}"
             state: present
             reload: true
             ignoreerrors: true
@@ -21,7 +21,7 @@
             name: "{{ item }}"
             value: '0'
             sysctl_set: true
-            sysctl_file: "{{ ubtu22cis_sysctl_network_conf }}"
+            sysctl_file: "{{ debian11cis_sysctl_network_conf }}"
             state: present
             reload: true
             ignoreerrors: true
@@ -30,8 +30,8 @@
             - net.ipv6.conf.default.accept_source_route
         notify: Flush ipv6 route table
   when:
-      - ubtu22cis_rule_3_3_1
-      - not ubtu22cis_is_router
+      - debian11cis_rule_3_3_1
+      - not debian11cis_is_router
   tags:
       - level1-server
       - level1-workstation
@@ -48,7 +48,7 @@
             name: "{{ item }}"
             value: '0'
             sysctl_set: true
-            sysctl_file: "{{ ubtu22cis_sysctl_network_conf }}"
+            sysctl_file: "{{ debian11cis_sysctl_network_conf }}"
             state: present
             reload: true
             ignoreerrors: true
@@ -62,7 +62,7 @@
             name: "{{ item }}"
             value: '0'
             sysctl_set: true
-            sysctl_file: "{{ ubtu22cis_sysctl_network_conf }}"
+            sysctl_file: "{{ debian11cis_sysctl_network_conf }}"
             state: present
             reload: true
             ignoreerrors: true
@@ -71,7 +71,7 @@
             - net.ipv6.conf.default.accept_redirects
         notify: Flush ipv6 route table
   when:
-      - ubtu22cis_rule_3_3_2
+      - debian11cis_rule_3_3_2
   tags:
       - level1-server
       - level1-workstation
@@ -86,7 +86,7 @@
       name: "{{ item }}"
       value: '0'
       sysctl_set: true
-      sysctl_file: "{{ ubtu22cis_sysctl_network_conf }}"
+      sysctl_file: "{{ debian11cis_sysctl_network_conf }}"
       state: present
       reload: true
       ignoreerrors: true
@@ -95,7 +95,7 @@
       - net.ipv4.conf.default.secure_redirects
   notify: Flush ipv4 route table
   when:
-      - ubtu22cis_rule_3_3_3
+      - debian11cis_rule_3_3_3
   tags:
       - level1-server
       - level1-workstation
@@ -110,7 +110,7 @@
       name: "{{ item }}"
       value: '1'
       sysctl_set: true
-      sysctl_file: "{{ ubtu22cis_sysctl_network_conf }}"
+      sysctl_file: "{{ debian11cis_sysctl_network_conf }}"
       state: present
       reload: true
       ignoreerrors: true
@@ -119,7 +119,7 @@
       - net.ipv4.conf.default.log_martians
   notify: Flush ipv4 route table
   when:
-      - ubtu22cis_rule_3_3_4
+      - debian11cis_rule_3_3_4
   tags:
       - level1-server
       - level1-workstation
@@ -134,13 +134,13 @@
       name: net.ipv4.icmp_echo_ignore_broadcasts
       value: '1'
       sysctl_set: true
-      sysctl_file: "{{ ubtu22cis_sysctl_network_conf }}"
+      sysctl_file: "{{ debian11cis_sysctl_network_conf }}"
       state: present
       reload: true
       ignoreerrors: true
   notify: Flush ipv4 route table
   when:
-      - ubtu22cis_rule_3_3_5
+      - debian11cis_rule_3_3_5
   tags:
       - level1-server
       - level1-workstation
@@ -155,13 +155,13 @@
       name: net.ipv4.icmp_ignore_bogus_error_responses
       value: '1'
       sysctl_set: true
-      sysctl_file: "{{ ubtu22cis_sysctl_network_conf }}"
+      sysctl_file: "{{ debian11cis_sysctl_network_conf }}"
       state: present
       reload: true
       ignoreerrors: true
   notify: Flush ipv4 route table
   when:
-      - ubtu22cis_rule_3_3_6
+      - debian11cis_rule_3_3_6
   tags:
       - level1-server
       - level1-workstation
@@ -176,7 +176,7 @@
       name: "{{ item }}"
       value: '1'
       sysctl_set: true
-      sysctl_file: "{{ ubtu22cis_sysctl_network_conf }}"
+      sysctl_file: "{{ debian11cis_sysctl_network_conf }}"
       state: present
       reload: true
       ignoreerrors: true
@@ -185,7 +185,7 @@
       - net.ipv4.conf.default.rp_filter
   notify: Flush ipv4 route table
   when:
-      - ubtu22cis_rule_3_3_7
+      - debian11cis_rule_3_3_7
   tags:
       - level1-server
       - level1-workstation
@@ -200,13 +200,13 @@
       name: net.ipv4.tcp_syncookies
       value: '1'
       sysctl_set: true
-      sysctl_file: "{{ ubtu22cis_sysctl_network_conf }}"
+      sysctl_file: "{{ debian11cis_sysctl_network_conf }}"
       state: present
       reload: true
       ignoreerrors: true
   notify: Flush ipv4 route table
   when:
-      - ubtu22cis_rule_3_3_8
+      - debian11cis_rule_3_3_8
   tags:
       - level1-server
       - level1-workstation
@@ -221,7 +221,7 @@
       name: "{{ item }}"
       value: '0'
       sysctl_set: true
-      sysctl_file: "{{ ubtu22cis_sysctl_network_conf }}"
+      sysctl_file: "{{ debian11cis_sysctl_network_conf }}"
       state: present
       reload: true
       ignoreerrors: true
@@ -230,8 +230,8 @@
       - net.ipv6.conf.default.accept_ra
   notify: Flush ipv6 route table
   when:
-      - ubtu22cis_rule_3_3_9
-      - ubtu22cis_ipv6_required
+      - debian11cis_rule_3_3_9
+      - debian11cis_ipv6_required
   tags:
       - level1-server
       - level1-workstation

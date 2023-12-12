@@ -24,7 +24,7 @@
         changed_when: false
         failed_when: false
         check_mode: false
-        register: ubtu22cis_5_4_1_pam_pwquality_state
+        register: debian11cis_5_4_1_pam_pwquality_state
 
       - name: "5.4.1 | PATCH | Ensure password creation requirements are configured | Set retry to 3 if pwquality exists"
         community.general.pamd:
@@ -34,7 +34,7 @@
             module_path: pam_pwquality.so
             module_arguments: 'retry=3'
             state: args_present
-        when: ubtu22cis_5_4_1_pam_pwquality_state.stdout | length > 0
+        when: debian11cis_5_4_1_pam_pwquality_state.stdout | length > 0
 
       - name: "5.4.1 | PATCH | Ensure password creation requirements are configured | Set retry to 3 if pwquality does not exist"
         community.general.pamd:
@@ -47,9 +47,9 @@
             new_module_path: pam_pwquality.so
             module_arguments: 'retry=3'
             state: after
-        when: ubtu22cis_5_4_1_pam_pwquality_state.stdout | length == 0
+        when: debian11cis_5_4_1_pam_pwquality_state.stdout | length == 0
   when:
-      - ubtu22cis_rule_5_4_1
+      - debian11cis_rule_5_4_1
   tags:
       - level1-server
       - level1-workstation
@@ -73,10 +73,10 @@
             path: /etc/pam.d/common-auth
             before: .*pam_deny.so
             regexp: .*pam_unix.so nullok
-            replace: "{{ ubtu22cis_rule_5_4_2_faillock_config }}"
+            replace: "{{ debian11cis_rule_5_4_2_faillock_config }}"
         when:
             - "'pam_faillock.so' not in faillock_state.stdout"
-            - ubtu22cis_allow_common_auth_rewrite
+            - debian11cis_allow_common_auth_rewrite
 
       - name: "5.4.2 | PATCH | Ensure lockout for failed password attempts is configured | Set faillock common-account"
         ansible.builtin.lineinfile:
@@ -96,7 +96,7 @@
             - { regexp: '^fail_interval', line: 'fail_interval = 900' }
             - { regexp: '^unlock_time', line: 'unlock_time = 600' }
   when:
-      - ubtu22cis_rule_5_4_2
+      - debian11cis_rule_5_4_2
   tags:
       - level1-server
       - level1-workstation
@@ -112,10 +112,10 @@
       type: password
       control: '[success=1 default=ignore]'
       module_path: pam_unix.so
-      module_arguments: "remember={{ ubtu22cis_pamd_pwhistory_remember }}"
+      module_arguments: "remember={{ debian11cis_pamd_pwhistory_remember }}"
       state: args_present
   when:
-      - ubtu22cis_rule_5_4_3
+      - debian11cis_rule_5_4_3
   tags:
       - level1-server
       - level1-workstation
@@ -131,7 +131,7 @@
         changed_when: false
         failed_when: false
         check_mode: false
-        register: ubtu22cis_5_4_4_pam_unix_state
+        register: debian11cis_5_4_4_pam_unix_state
 
       - name: "5.4.4 | PATCH | Ensure password hashing algorithm is up to date with the latest standards | Set hashing if pam_unix.so exists"
         community.general.pamd:
@@ -139,18 +139,18 @@
             type: password
             control: '[success=1 default=ignore]'
             module_path: pam_unix.so
-            module_arguments: "{{ ubtu22cis_passwd_hash_algo }}"
-            state: "{{ ubtu22cis_passwd_setpam_hash_algo | ternary('args_present', 'args_absent') }}"
+            module_arguments: "{{ debian11cis_passwd_hash_algo }}"
+            state: "{{ debian11cis_passwd_setpam_hash_algo | ternary('args_present', 'args_absent') }}"
         when:
-            - ubtu22cis_5_4_4_pam_unix_state.stdout | length > 0
+            - debian11cis_5_4_4_pam_unix_state.stdout | length > 0
 
       - name: "5.4.4 | PATCH | Ensure password hashing algorithm is up to date with the latest standards | Set hashing if pam_unix.so does not exist"
         ansible.builtin.lineinfile:
             path: /etc/login.defs
             regexp: '^ENCRYPT_METHOD'
-            line: 'ENCRYPT_METHOD {{ ubtu22cis_passwd_hash_algo }}'
+            line: 'ENCRYPT_METHOD {{ debian11cis_passwd_hash_algo }}'
   when:
-      - ubtu22cis_rule_5_4_4
+      - debian11cis_rule_5_4_4
   tags:
       - level1-server
       - level1-workstation
@@ -166,22 +166,22 @@
         changed_when: false
         failed_when: false
         check_mode: false
-        register: ubtu22cis_5_4_5_passwd_hash_used
+        register: debian11cis_5_4_5_passwd_hash_used
 
       # This is only looking for yescrypt if sha512 need to change the $y$ to $6$
       - name: "5.4.5 | AUDIT | Ensure all current passwords uses the configured hashing algorithm | check has found"
         ansible.builtin.debug:
-            msg: "Warning!! Passwords found using not using {{ ubtu22cis_passwd_hash_algo }} algorithm - This required manual intervention"
-        when: "' $y$' not in ubtu22cis_5_4_5_passwd_hash_used.stdout"
+            msg: "Warning!! Passwords found using not using {{ debian11cis_passwd_hash_algo }} algorithm - This required manual intervention"
+        when: "' $y$' not in debian11cis_5_4_5_passwd_hash_used.stdout"
 
       - name: "5.4.5 | WARN | Ensure all current passwords uses the configured hashing algorithm | warn_count"
         ansible.builtin.import_tasks:
             file: warning_facts.yml
-        when: "' $y$' not in ubtu22cis_5_4_5_passwd_hash_used.stdout"
+        when: "' $y$' not in debian11cis_5_4_5_passwd_hash_used.stdout"
   vars:
       warn_control_id: '5.4.5'
   when:
-      - ubtu22cis_rule_5_4_5
+      - debian11cis_rule_5_4_5
   tags:
       - level1-server
       - level1-workstation
