@@ -41,6 +41,7 @@
   when:
       - "'/tmp' in mount_names"
       - item.mount == "/tmp"
+      - tmp_mnt_type is defined
       - tmp_mnt_type == 'tmp_systemd'
       - debian11cis_rule_1_1_2_2 or
         debian11cis_rule_1_1_2_3 or
@@ -72,6 +73,7 @@
       label: "{{ item.device }}"
   when:
       - "'/tmp' in mount_names"
+      - tmp_mnt_type is defined
       - tmp_mnt_type == 'fstab'
       - item.mount == "/tmp"
       - debian11cis_rule_1_1_2_1 or
